@@ -1,0 +1,46 @@
+<configuration>
+
+    <!-- Define um appender de console com JSON -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
+            <providers>
+                <!-- Inclui o tempo do log -->
+                <timestamp>
+                    <fieldName>timestamp</fieldName>
+                    <pattern>yyyy-MM-dd HH:mm:ss.SSS</pattern>
+                </timestamp>
+
+                <!-- Inclui o nível do log (INFO, DEBUG, ERROR) -->
+                <logLevel>
+                    <fieldName>level</fieldName>
+                </logLevel>
+
+                <!-- Inclui a mensagem do log -->
+                <message>
+                    <fieldName>message</fieldName>
+                </message>
+
+                <!-- Inclui o nome da thread -->
+                <threadName>
+                    <fieldName>thread</fieldName>
+                </threadName>
+
+                <!-- Inclui o nome da classe e do método -->
+                <pattern>
+                    <pattern>
+                        {
+                        "className": "%logger{36}",
+                        "method": "%M"
+                        }
+                    </pattern>
+                </pattern>
+            </providers>
+        </encoder>
+    </appender>
+
+    <!-- Define o nível do root logger -->
+    <root level="INFO">
+        <appender-ref ref="STDOUT" />
+    </root>
+
+</configuration>
