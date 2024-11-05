@@ -28,67 +28,36 @@ public class ServicoAsync {
         return resposta;
     }
 
-    @Async
-    public CompletableFuture<ResponseEntity<Cep>> metodoAssincrono1() throws Exception {
-        // Lógica assíncrona
-
-        StopWatch start = new StopWatch();
-
-        start.start();
-
-        ResponseEntity<Cep> cep = buscarCep("43810170");
-
-        start.stop();
-
-        logger.info("Tempo request metodo 1 = " + start.getTotalTimeMillis());
-        return CompletableFuture.completedFuture(cep);
+    public CompletableFuture<ResponseEntity<Cep>> metodoAssincrono1() {
+        return CompletableFuture.supplyAsync(() -> {
+            logger.info("Executando metodoAssincrono1 na thread: " + Thread.currentThread().getName());
+            // Lógica do método
+            return buscarCep("43810170");
+        });
     }
 
-    @Async
     public CompletableFuture<ResponseEntity<Cep>> metodoAssincrono2() {
-        // Lógica assíncrona
-        StopWatch start = new StopWatch();
-
-        start.start();
-
-        ResponseEntity<Cep> cep = buscarCep("15050305");
-
-        start.stop();
-
-        logger.info("Tempo request metodo 2 = " + start.getTotalTimeMillis());
-
-        return CompletableFuture.completedFuture(cep);
+        return CompletableFuture.supplyAsync(() -> {
+            logger.info("Executando metodoAssincrono2 na thread: " + Thread.currentThread().getName());
+            // Lógica do método
+            return buscarCep("43810170");
+        });
     }
 
-    @Async
-    public CompletableFuture<ResponseEntity<Cep>> metodoAssincrono3() throws Exception {
-        // Lógica assíncrona
-        StopWatch start = new StopWatch();
-
-        start.start();
-
-        ResponseEntity<Cep> cep = buscarCep("15050305");
-
-        start.stop();
-
-        logger.info("Tempo request metodo 3 = " + start.getTotalTimeMillis());
-
-        return CompletableFuture.completedFuture(cep);
+    public CompletableFuture<ResponseEntity<Cep>> metodoAssincrono3() {
+        return CompletableFuture.supplyAsync(() -> {
+            logger.info("Executando metodoAssincrono3 na thread: " + Thread.currentThread().getName());
+            // Lógica do método
+            return buscarCep("43810170");
+        });
     }
-    @Async
-    public CompletableFuture<ResponseEntity<Cep>> metodoAssincrono4() throws Exception {
-        // Lógica assíncrona
-        StopWatch start = new StopWatch();
 
-        start.start();
-
-        ResponseEntity<Cep> cep = buscarCep("43810170");
-
-        start.stop();
-
-        logger.info("Tempo request metodo 4 = " + start.getTotalTimeMillis());
-
-        return CompletableFuture.completedFuture(cep);
+    public CompletableFuture<ResponseEntity<Cep>> metodoAssincrono4() {
+        return CompletableFuture.supplyAsync(() -> {
+            logger.info("Executando metodoAssincrono4 na thread: " + Thread.currentThread().getName());
+            // Lógica do método
+            return buscarCep("43810170");
+        });
     }
 
 }

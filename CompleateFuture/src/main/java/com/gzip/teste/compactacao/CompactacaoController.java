@@ -4,8 +4,10 @@ package com.gzip.teste.compactacao;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.util.StopWatch;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -30,6 +32,7 @@ public class CompactacaoController {
 
 
     @GetMapping("/compactacao")
+    @Async
     public ResponseEntity<?> getMessage(@RequestParam(name = "cep", required = true) String cep) throws Exception {
 
         String uri = "https://pokeapi.co/";
@@ -37,11 +40,10 @@ public class CompactacaoController {
         StopWatch start = new StopWatch();
 
         start.start();
-
         CompletableFuture<ResponseEntity<Cep>> resposta1 = this.servicoAsync.metodoAssincrono1();
-        CompletableFuture<ResponseEntity<Cep>> resposta2 = this.servicoAsync.metodoAssincrono2();
-        CompletableFuture<ResponseEntity<Cep>> resposta3 = this.servicoAsync.metodoAssincrono3();
-        CompletableFuture<ResponseEntity<Cep>> resposta4 = this.servicoAsync.metodoAssincrono4();
+        CompletableFuture<ResponseEntity<Cep>> resposta2 = this.servicoAsync.metodoAssincrono1();
+        CompletableFuture<ResponseEntity<Cep>> resposta3 = this.servicoAsync.metodoAssincrono1();
+        CompletableFuture<ResponseEntity<Cep>> resposta4 = this.servicoAsync.metodoAssincrono1();
 
         CompletableFuture.allOf(resposta1, resposta2, resposta3, resposta4).join();
 
